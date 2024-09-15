@@ -62,6 +62,36 @@ namespace Selenium_Calculadora.Testes
             };
         }
 
+        [Test]
+        public void TesteMultiplicacao()
+        {
+            IWebElement input = _driver.FindElement(By.Id("TIExp"));
+            var procedimentos = _XMLHelper.LerProcedimentos();
+
+            foreach (var procedimento in procedimentos)
+            {
+                if (procedimento.Nome == "Multiplicacao")
+                {
+                    foreach (var caso in procedimento.Casos)
+                    {
+                        var entrada1 = caso.Entrada1;
+                        var entrada2 = caso.Entrada2;
+                        var resultadoEsperado = caso.ResultadoEsperado;
+
+                        input.SendKeys($"{entrada1}*{entrada2}");
+
+                        IWebElement btnResult = _driver.FindElement(By.Id("b27"));
+                        btnResult.Click();
+
+                        IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
+                        string resultadoObtido = divResultado.GetAttribute("value");
+
+                        Assert.That(resultadoObtido, Is.EqualTo(resultadoEsperado.ToString()), $"Erro ao multiplicar {entrada1} + {entrada2}. Resultado esperado: {resultadoEsperado}, Resultado obtido: {resultadoObtido}");
+                    }
+                }
+            }
+        }
+
         [TearDown]
         public void TearDown()
         {

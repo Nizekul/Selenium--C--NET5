@@ -1,10 +1,9 @@
-﻿
-using Selenium_Calculadora.Xml;
+﻿using Selenium_Calculadora.Xml;
 using SeleniumCalculadora.PaginaCalculadora;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         CalculadoraOnline teste = new();
         teste.SomaValores();

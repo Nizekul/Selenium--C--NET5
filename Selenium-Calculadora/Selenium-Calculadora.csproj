@@ -11,6 +11,9 @@
   <None Update="Drivers\ChromeDriver.exe">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
+  <None Update="Xml\CasosDeTeste.xml">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
 
   <ItemGroup>

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumCalculadora.PaginaCalculadora
 {
     public class CalculadoraOnline
     {
-        private readonly IConfiguration _configuration;
         private IWebDriver _driver;
 
         public CalculadoraOnline()
         {
-            //_configuration = configuration;
-
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("--headless");
 

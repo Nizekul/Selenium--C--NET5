@@ -1,24 +1,12 @@
-﻿using Selenium_Calculadora.Xml;
-using SeleniumCalculadora.PaginaCalculadora;
+﻿using Selenium_Calculadora.Testes;
+using Selenium_Calculadora.Xml;
 
 class Program
 {
     static void Main()
     {
-        CalculadoraOnline teste = new();
-        teste.SomaValores();
+        Testes testes = new Testes();
 
-        XMLHelper xMLHelper = new();
-        var procedimentos = xMLHelper.LerProcedimentos();
-        foreach (var procedimento in procedimentos)
-        {
-            Console.WriteLine($"Nome do Procedimento: {procedimento.Nome}");
-            foreach (var caso in procedimento.Casos)
-            {
-                Console.WriteLine($"    Entrada 1: {caso.Entrada1}");
-                Console.WriteLine($"    Entrada 2: {caso.Entrada2}");
-                Console.WriteLine($"    Resultado Esperado: {caso.ResultadoEsperado}");
-            }
-        }
+        //testes.TesteProcedimentos();
     }
 }

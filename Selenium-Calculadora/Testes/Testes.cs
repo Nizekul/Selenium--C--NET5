@@ -9,57 +9,74 @@ namespace Selenium_Calculadora.Testes
     public class Testes
     {
         private IWebDriver _driver;
-        private XMLHelper _XMLHelper;
+        private XMLHelper _XMLHelper = new XMLHelper();
+
+        public Testes()
+        {
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("--headless");
+
+            _driver = new ChromeDriver(
+                "Drivers/ChromeDriver.exe",
+                chromeOptions);
+            Setup();
+        }
+
 
         [SetUp]
         public void Setup()
         {
-            _driver = new ChromeDriver();
-            _driver.Navigate().GoToUrl("https://www.calculadoraonline.com.br/basica"); 
-
-            _XMLHelper = new XMLHelper();
+            _driver.Manage().Timeouts().PageLoad =
+                TimeSpan.FromSeconds(60);
+            _driver.Navigate().GoToUrl(
+                "https://www.calculadoraonline.com.br/basica"
+                );
         }
 
-        [Test] 
-        public void TesteProcedimentos()
-        {
-            IWebElement input = _driver.FindElement(By.Id("TIExp"));
+        //[Test] 
+        //public void TesteProcedimentos()
+        //{
+        //    IWebElement input = _driver.FindElement(By.Id("TIExp"));
 
-            var procedimentos = _XMLHelper.LerProcedimentos();
+        //    var procedimentos = _XMLHelper.LerProcedimentos();
 
-            foreach (var item in procedimentos)
-            {
-                foreach (var item2 in item.Casos)
-                {
-                    var entrada1 = item2.Entrada1;
-                    var entrada2 = item2.Entrada2;
+        //    foreach (var item in procedimentos)
+        //    {
+        //        foreach (var item2 in item.Casos)
+        //        {
+        //            var entradas = item2.Entradas;
 
-                    switch (item.Nome)
-                    {
-                        case "Soma":
-                            input.SendKeys($"{entrada1}+{entrada2}");
-                            break;
-                        case "Divisao":
-                            input.SendKeys($"{entrada1}/{entrada2}");
-                            break;
-                        case "Potenciacao":
-                            input.SendKeys($"{entrada1}^{entrada2}");
-                            break;
-                        case "Porcentagem":
-                            input.SendKeys($"{entrada1}%{entrada2}");
-                            break;
-                    }
 
-                    IWebElement btnResult = _driver.FindElement(By.Id("b27"));
-                    btnResult.Click();
+        //            switch (item.Nome)
+        //            {
+        //                case "Soma":
+        //                    var expressao = string.Join("+", entradas);
+        //                    input.SendKeys(expressao);
+        //                    break;
+        //                case "Divisao":
+        //                    expressao = string.Join("+", entradas);
+        //                    input.SendKeys(expressao);
+        //                    break;
+        //                case "Potenciacao":
+        //                    expressao = string.Join("+", entradas);
+        //                    input.SendKeys(expressao);
+        //                    break;
+        //                case "Porcentagem":
+        //                    expressao = string.Join("+", entradas);
+        //                    input.SendKeys(expressao);
+        //                    break;
+        //            }
 
-                    IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
-                    string resultado = divResultado.GetAttribute("value");
+        //            IWebElement btnResult = _driver.FindElement(By.Id("b27"));
+        //            btnResult.Click();
 
-                    Console.WriteLine("Resultado da operação: " + resultado);
-                }
-            }
-        }
+        //            IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
+        //            string resultado = divResultado.GetAttribute("value");
+
+        //            Console.WriteLine("Resultado da operação: " + resultado);
+        //        }
+        //    }
+        //}
 
         [Test]
         public void TesteMultiplicacao()
@@ -73,11 +90,13 @@ namespace Selenium_Calculadora.Testes
                 {
                     foreach (var caso in procedimento.Casos)
                     {
-                        var entrada1 = caso.Entrada1;
-                        var entrada2 = caso.Entrada2;
+                        var entradas = caso.Entradas;
                         var resultadoEsperado = caso.ResultadoEsperado;
 
-                        input.SendKeys($"{entrada1}*{entrada2}");
+                        input.Clear();
+
+                        var expressao = string.Join("*", entradas);
+                        input.SendKeys(expressao);
 
                         IWebElement btnResult = _driver.FindElement(By.Id("b27"));
                         btnResult.Click();
@@ -85,11 +104,14 @@ namespace Selenium_Calculadora.Testes
                         IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
                         string resultadoObtido = divResultado.GetAttribute("value");
 
-                        Assert.That(resultadoObtido, Is.EqualTo(resultadoEsperado.ToString()), $"Erro ao multiplicar {entrada1} + {entrada2}. Resultado esperado: {resultadoEsperado}, Resultado obtido: {resultadoObtido}");
+                        Assert.That(resultadoObtido, Is.EqualTo(resultadoEsperado.ToString()), $"Erro ao multiplicar {string.Join(" * ", entradas)}. Resultado esperado: {resultadoEsperado}, Resultado obtido: {resultadoObtido}");
+
+                        input.Clear();
                     }
                 }
             }
         }
+
 
         [TearDown]
         public void TearDown()

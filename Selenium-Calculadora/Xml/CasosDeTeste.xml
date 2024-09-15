@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testes>
+	<procedimento nome="Soma">
+		<caso>
+			<entrada>5</entrada>
+			<entrada>3</entrada>
+			<resultado>8</resultado>
+		</caso>
+	</procedimento>
+</testes>

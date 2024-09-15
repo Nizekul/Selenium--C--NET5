@@ -7,4 +7,36 @@
 			<resultado>8</resultado>
 		</caso>
 	</procedimento>
+	<procedimento nome="Multiplicacao">
+		<caso>
+			<entrada1>2</entrada1>
+			<entrada2>3</entrada2>
+			<resultado>6</resultado>
+		</caso>
+		<caso>
+			<entrada1>4</entrada1>
+			<entrada2>5</entrada2>
+			<resultado>20</resultado>
+		</caso>
+		<caso>
+			<entrada1>7</entrada1>
+			<entrada2>6</entrada2>
+			<resultado>42</resultado>
+		</caso>
+		<caso>
+			<entrada1>9</entrada1>
+			<entrada2>8</entrada2>
+			<resultado>72</resultado>
+		</caso>
+		<caso>
+			<entrada1>10</entrada1>
+			<entrada2>0</entrada2>
+			<resultado>0</resultado>
+		</caso>
+		<caso>
+			<entrada1>0</entrada1>
+			<entrada2>5</entrada2>
+			<resultado>0</resultado>
+		</caso>
+	</procedimento>
 </testes>

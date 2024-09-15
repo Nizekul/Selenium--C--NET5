@@ -47,9 +47,6 @@ namespace SeleniumCalculadora.PaginaCalculadora
                         case "Soma":
                             input.SendKeys($"{entrada1}+{entrada2}");
                             break;
-                        case "Multiplicacao":
-                            input.SendKeys($"{entrada1}+{entrada2}");
-                            break;
                         case "Divisao":
                             input.SendKeys($"{entrada1}+{entrada2}");
                             break;

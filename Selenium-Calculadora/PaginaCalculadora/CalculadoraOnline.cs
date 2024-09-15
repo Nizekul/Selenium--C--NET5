@@ -34,8 +34,17 @@ namespace SeleniumCalculadora.PaginaCalculadora
 
         public void ObterValores()
         {
-            var element = _driver.FindElement(By.Id("b1"));
-            Console.WriteLine(element);
+            IWebElement input = _driver.FindElement(By.Id("TIExp"));
+
+            input.SendKeys("3+5");
+
+            IWebElement btnResult = _driver.FindElement(By.Id("b27"));
+            btnResult.Click();
+
+            IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
+            string resultado = divResultado.GetAttribute("value");
+
+            Console.WriteLine("Resultado da operação: " + resultado);
         }
 
         public void Fechar()

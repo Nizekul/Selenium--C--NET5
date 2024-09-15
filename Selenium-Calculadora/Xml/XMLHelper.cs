@@ -23,7 +23,7 @@ namespace Selenium_Calculadora.Xml
                     Id = caso.Attribute("id")?.Value,
                     Entrada1 = caso.Element("entrada1")?.Value,
                     Entrada2 = caso.Element("entrada2")?.Value,
-                    ResultadoEsperado = caso.Element("resultadoEsperado")?.Value
+                    ResultadoEsperado = caso.Element("resultado")?.Value
                 }).ToList()
             }).ToList();
         }

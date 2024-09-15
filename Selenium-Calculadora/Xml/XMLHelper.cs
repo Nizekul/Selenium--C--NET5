@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
+using Selenium_Calculadora.Entidades;
 
 namespace Selenium_Calculadora.Xml
 {
@@ -21,9 +22,10 @@ namespace Selenium_Calculadora.Xml
                 Nome = procedimento.Attribute("nome")?.Value ?? "",
                 Casos = procedimento.Elements("caso").Select(caso => new Caso
                 {
-                    Entrada1 = caso?.Element("entrada1")?.Value,
-                    Entrada2 = caso?.Element("entrada2")?.Value,
-                    ResultadoEsperado = caso?.Element("resultado")?.Value
+                    Entradas = caso.Element("entradas")?.Elements("entrada")
+                            .Select(e => int.Parse(e.Value))
+                            .ToList() ?? new List<int>(),
+                    ResultadoEsperado = caso.Element("resultado")?.Value
                 }).ToList()
             });
         }

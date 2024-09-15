@@ -1,4 +1,4 @@
-﻿namespace Selenium_Calculadora
+﻿namespace Selenium_Calculadora.Entidades
 {
     public class Procedimento
     {

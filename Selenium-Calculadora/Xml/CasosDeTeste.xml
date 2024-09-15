@@ -2,41 +2,128 @@
 <testes>
 	<procedimento nome="Soma">
 		<caso>
-			<entrada1>5</entrada1>
-			<entrada2>3</entrada2>
+			<entradas>
+				<entrada>5</entrada>
+				<entrada>3</entrada>
+			</entradas>
 			<resultado>8</resultado>
 		</caso>
+
+		<caso>
+			<entradas>
+				<entrada>-5</entrada>
+				<entrada>3</entrada>
+			</entradas>
+			<resultado>-2</resultado>
+		</caso>
+
+		<caso>
+			<entradas>
+				<entrada>-5</entrada>
+				<entrada>-3</entrada>
+			</entradas>
+			<resultado>-8</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>1</entrada>
+				<entrada>2</entrada>
+				<entrada>3</entrada>
+				<entrada>4</entrada>
+			</entradas>
+			<resultado>10</resultado>
+		</caso>
+
+		<caso>
+			<entradas>
+				<entrada>-1</entrada>
+				<entrada>2</entrada>
+				<entrada>-3</entrada>
+				<entrada>4</entrada>
+			</entradas>
+			<resultado>2</resultado>
+		</caso>
 	</procedimento>
+	
 	<procedimento nome="Multiplicacao">
 		<caso>
-			<entrada1>2</entrada1>
-			<entrada2>3</entrada2>
+			<entradas>
+				<entrada>2</entrada>
+				<entrada>3</entrada>
+			</entradas>
 			<resultado>6</resultado>
 		</caso>
 		<caso>
-			<entrada1>4</entrada1>
-			<entrada2>5</entrada2>
+			<entradas>
+				<entrada>4</entrada>
+				<entrada>5</entrada>
+			</entradas>
 			<resultado>20</resultado>
 		</caso>
 		<caso>
-			<entrada1>7</entrada1>
-			<entrada2>6</entrada2>
+			<entradas>
+				<entrada>7</entrada>
+				<entrada>6</entrada>
+			</entradas>
 			<resultado>42</resultado>
 		</caso>
 		<caso>
-			<entrada1>9</entrada1>
-			<entrada2>8</entrada2>
+			<entradas>
+				<entrada>9</entrada>
+				<entrada>8</entrada>
+			</entradas>
 			<resultado>72</resultado>
 		</caso>
 		<caso>
-			<entrada1>10</entrada1>
-			<entrada2>0</entrada2>
+			<entradas>
+				<entrada>10</entrada>
+				<entrada>0</entrada>
+			</entradas>
 			<resultado>0</resultado>
 		</caso>
 		<caso>
-			<entrada1>0</entrada1>
-			<entrada2>5</entrada2>
+			<entradas>
+				<entrada>0</entrada>
+				<entrada>5</entrada>
+			</entradas>
 			<resultado>0</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>-3</entrada>
+				<entrada>5</entrada>
+			</entradas>
+			<resultado>-15</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>-7</entrada>
+				<entrada>-6</entrada>
+			</entradas>
+			<resultado>42</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>123456</entrada>
+				<entrada>654321</entrada>
+			</entradas>
+			<resultado>80779853376</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>-100000</entrada>
+				<entrada>200000</entrada>
+			</entradas>
+			<resultado>-20000000000</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>1</entrada>
+				<entrada>2</entrada>
+				<entrada>3</entrada>
+				<entrada>4</entrada>
+			</entradas>
+			<resultado>24</resultado>
 		</caso>
 	</procedimento>
 </testes>

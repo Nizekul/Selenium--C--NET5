@@ -3,7 +3,8 @@
    public class Caso
     {
         public string Id { get; set; }
-        public List<int> Entradas { get; set; }
+        public string Entrada1 { get; set; }
+        public string Entrada2 { get; set; }
         public string ResultadoEsperado { get; set; }
     }
 }

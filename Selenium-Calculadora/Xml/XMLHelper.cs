@@ -22,10 +22,8 @@ namespace Selenium_Calculadora.Xml
                 Casos = procedimento.Elements("caso").Select(caso => new Caso
                 {
                     Id = caso.Attribute("id")?.Value ?? "0",
-                    Entradas = new List<int> {
-                        int.Parse(caso.Element("entrada1").Value),
-                        int.Parse(caso.Element("entrada2").Value)
-                    },
+                    Entrada1 = caso.Element("entrada1")?.Value,
+                    Entrada2 = caso.Element("entrada2")?.Value,
                     ResultadoEsperado = caso.Element("resultado")?.Value
                 }).ToList()
             });

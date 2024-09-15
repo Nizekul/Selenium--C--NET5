@@ -29,60 +29,45 @@ namespace SeleniumCalculadora.PaginaCalculadora
                 );
         }
 
-        public void ObterValores()
+        public void SomaValores()
         {
-            var listValores = _XMLHelper.LerProcedimentos();
+            IWebElement input = _driver.FindElement(By.Id("TIExp"));
 
-            foreach (var procedimento in listValores)
+            var procedimentos = _XMLHelper.LerProcedimentos();
+
+            foreach (var item in procedimentos)
             {
-                foreach (var caso in procedimento.Casos)
+                foreach (var item2 in item.Casos)
                 {
-                    // Clicar nos botões baseados nas entradas do XML
-                    foreach (var entrada in caso.Entradas)
+                    var entrada1 = item2.Entrada1;
+                    var entrada2 = item2.Entrada2;
+
+                    switch (item.Nome)
                     {
-                        IWebElement botao = null;
-
-                        // Atribuir os IDs dos botões conforme as entradas
-                        switch (entrada)
-                        {
-                            case 5:
-                                botao = _driver.FindElement(By.Id("b10"));
-                                break;
-                            case 3:
-                                botao = _driver.FindElement(By.Id("b19"));
-                                break;
-                                // Adicionar mais cases para outros botões conforme necessário
-                        }
-
-                        // Clicar no botão correspondente
-                        botao.Click();
+                        case "Soma":
+                            input.SendKeys($"{entrada1}+{entrada2}");
+                            break;
+                        case "Multiplicacao":
+                            input.SendKeys($"{entrada1}+{entrada2}");
+                            break;
+                        case "Divisao":
+                            input.SendKeys($"{entrada1}+{entrada2}");
+                            break;
+                        case "Potenciacao":
+                            input.SendKeys($"{entrada1}+{entrada2}");
+                            break;
+                        case "Porcentagem":
+                            input.SendKeys($"{entrada1}+{entrada2}");
+                            break;
                     }
 
-                    // Após clicar nos números, clicamos no botão de soma (ID do botão de '+' na calculadora)
-                    IWebElement botaoSoma = _driver.FindElement(By.Id("b24")); // Exemplo de ID do botão "+"
-                    botaoSoma.Click();
+                    IWebElement btnResult = _driver.FindElement(By.Id("b27"));
+                    btnResult.Click();
 
-                    // Agora clicamos no botão de "=" para obter o resultado
-                    IWebElement botaoIgual = _driver.FindElement(By.Id("b25")); // Exemplo de ID do botão "="
-                    botaoIgual.Click();
+                    IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
+                    string resultado = divResultado.GetAttribute("value");
 
-                    // Pegar o valor exibido no resultado (exemplo usando ID do display)
-                    IWebElement resultadoDisplay = _driver.FindElement(By.Id("display")); // Exemplo de ID do display
-                    string resultadoObtido = resultadoDisplay.Text;
-
-                    // Comparar o resultado obtido com o resultado esperado
-                    if (resultadoObtido == caso.ResultadoEsperado.ToString())
-                    {
-                        Console.WriteLine($"Teste de {procedimento.Nome}: Sucesso!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Teste de {procedimento.Nome}: Falhou! Esperado: {caso.ResultadoEsperado}, Obtido: {resultadoObtido}");
-                    }
-
-                    // Limpar o display antes de executar o próximo teste (caso haja um botão de limpar)
-                    IWebElement botaoLimpar = _driver.FindElement(By.Id("b27")); // Exemplo de ID do botão "C" (Clear)
-                    botaoLimpar.Click();
+                    Console.WriteLine("Resultado da operação: " + resultado);
                 }
             }
         }

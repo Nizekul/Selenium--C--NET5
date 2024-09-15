@@ -2,8 +2,8 @@
 <testes>
 	<procedimento nome="Soma">
 		<caso>
-			<entrada>5</entrada>
-			<entrada>3</entrada>
+			<entrada1>5</entrada1>
+			<entrada2>3</entrada2>
 			<resultado>8</resultado>
 		</caso>
 	</procedimento>

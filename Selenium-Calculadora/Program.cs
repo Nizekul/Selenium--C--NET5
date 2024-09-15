@@ -7,9 +7,19 @@ class Program
     static void Main(string[] args)
     {
         CalculadoraOnline teste = new();
-        teste.ObterValores();
+        teste.SomaValores();
 
         XMLHelper xMLHelper = new();
-        xMLHelper.LerProcedimentos();      
+        var procedimentos = xMLHelper.LerProcedimentos();
+        foreach (var procedimento in procedimentos)
+        {
+            Console.WriteLine($"Nome do Procedimento: {procedimento.Nome}");
+            foreach (var caso in procedimento.Casos)
+            {
+                Console.WriteLine($"    Entrada 1: {caso.Entrada1}");
+                Console.WriteLine($"    Entrada 2: {caso.Entrada2}");
+                Console.WriteLine($"    Resultado Esperado: {caso.ResultadoEsperado}");
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ jobs:
 
     env:
       Solution_Name: Selenium-Calculadora                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: Selenium-Calculadora\Tests\Tests.cs                # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Test_Project_Path: Selenium-Calculadora\Testes\Testes.cs                # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
 
     steps:
     - name: Checkout

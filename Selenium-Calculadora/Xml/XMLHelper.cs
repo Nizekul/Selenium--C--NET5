@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Linq;
+using System.Xml.Linq;
 
 namespace Selenium_Calculadora.Xml
 {
@@ -17,18 +18,17 @@ namespace Selenium_Calculadora.Xml
         {
             return DocumentoXml.Descendants("procedimento").Select(procedimento => new Procedimento
             {
-                Nome = procedimento.Attribute("nome")?.Value,
+                Nome = procedimento.Attribute("nome")?.Value ?? "",
                 Casos = procedimento.Elements("caso").Select(caso => new Caso
                 {
-                    Id = caso.Attribute("id")?.Value,
-                    Entrada1 = caso.Element("entrada1")?.Value,
-                    Entrada2 = caso.Element("entrada2")?.Value,
-                    ResultadoEsperado = caso.Element("resultadoEsperado")?.Value
+                    Id = caso.Attribute("id")?.Value ?? "0",
+                    Entradas = new List<int> {
+                        int.Parse(caso.Element("entrada1").Value),
+                        int.Parse(caso.Element("entrada2").Value)
+                    },
+                    ResultadoEsperado = caso.Element("resultado")?.Value
                 }).ToList()
-            }).ToList();
+            });
         }
-
-
     }
-
 }

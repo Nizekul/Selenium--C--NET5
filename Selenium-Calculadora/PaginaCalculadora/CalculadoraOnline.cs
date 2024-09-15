@@ -21,6 +21,7 @@ namespace SeleniumCalculadora.PaginaCalculadora
             _driver = new ChromeDriver(
                 "Drivers/ChromeDriver.exe",
                 chromeOptions);
+            CarregarPagina();
         }
 
         public void CarregarPagina()
@@ -34,11 +35,16 @@ namespace SeleniumCalculadora.PaginaCalculadora
 
         public void ObterValores()
         {
-            var vegetable = _driver.FindElement(By.ClassName("bt bt1 cnum"));
+            IWebElement element = _driver.FindElement(By.Id("painelcalcdesk"));
+            IWebElement bt1 = _driver.FindElement(By.Id("b1"));
+            var teste = bt1.Text;
 
-            var rowsCotacoes = _driver
-                .FindElement(By.Id("b1")
-                );
+            //var bt1 = _driver
+            //    .FindElement(By.Id("painelcalcdesk"))
+            //    .FindElement(By.TagName("tbody"))
+            //    .FindElement(By.TagName("tr"))
+            //    .FindElement(By.TagName("td"))
+            //    .FindElements(By.;
 
         }
 

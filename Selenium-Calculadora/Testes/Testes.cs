@@ -20,38 +20,23 @@ namespace Selenium_Calculadora.Testes
             _XMLHelper = new XMLHelper();
         }
 
-        [Test] 
+        [Test]
         public void TesteProcedimentos()
         {
             IWebElement input = _driver.FindElement(By.Id("TIExp"));
 
             var procedimentos = _XMLHelper.LerProcedimentos();
 
-            foreach (var item in procedimentos)
+            foreach (var procedimento in procedimentos)
             {
-                foreach (var item2 in item.Casos)
+                foreach (var caso in procedimento.Casos)
                 {
-                    var entrada1 = item2.Entrada1;
-                    var entrada2 = item2.Entrada2;
+                    var entrada1 = caso.Entrada1;
+                    var entrada2 = caso.Entrada2;
 
-                    switch (item.Nome)
-                    {
-                        case "Soma":
-                            input.SendKeys($"{entrada1}+{entrada2}");
-                            break;
-                        case "Multiplicacao":
-                            input.SendKeys($"{entrada1}*{entrada2}");
-                            break;
-                        case "Divisao":
-                            input.SendKeys($"{entrada1}/{entrada2}");
-                            break;
-                        case "Potenciacao":
-                            input.SendKeys($"{entrada1}^{entrada2}");
-                            break;
-                        case "Porcentagem":
-                            input.SendKeys($"{entrada1}%{entrada2}");
-                            break;
-                    }
+                    var entrada = CriarEntrada(procedimento.Nome, entrada1, entrada2);
+
+                    input.SendKeys($"{entrada}");                   
 
                     IWebElement btnResult = _driver.FindElement(By.Id("b27"));
                     btnResult.Click();
@@ -62,6 +47,19 @@ namespace Selenium_Calculadora.Testes
                     Console.WriteLine("Resultado da operação: " + resultado);
                 }
             }
+        }
+
+        private string CriarEntrada(string operacao, string entrada1, string entrada2)
+        {
+            return operacao switch
+            {
+                "Soma" => $"{entrada1}+{entrada2}",
+                "Multiplicacao" => $"{entrada1}*{entrada2}",
+                "Divisao" => $"{entrada1}/{entrada2}",
+                "Potenciacao" => $"{entrada1}^{entrada2}",
+                "Porcentagem" => $"{entrada1}%{entrada2}",
+                _ => throw new ArgumentException("Operação desconhecida", nameof(operacao))
+            };
         }
 
         [TearDown]

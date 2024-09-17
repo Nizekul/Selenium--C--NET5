@@ -13,24 +13,21 @@ namespace Selenium_Calculadora.Testes
         private IWebDriver _driver;
         private readonly XMLHelper _XMLHelper = new();
 
-        public CalculadoraTests()
+        [SetUp]
+        public void Setup()
         {
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("--start-maximized");
 
             _driver = new ChromeDriver("Drivers/ChromeDriver.exe", chromeOptions);
-            Setup();
-        }
 
-
-        [SetUp]
-        public void Setup()
-        {
             _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(60);
             _driver.Navigate().GoToUrl("https://www.calculadoraonline.com.br/basica");
         }
 
         [TestCase("Soma")]
+        [TestCase("Multiplicação")]
+        [TestCase("Exponencial")]
         public void TestarOperacao(string nomeOperacao)
         {
             var procedimentos = _XMLHelper.LerProcedimentos();
@@ -51,7 +48,7 @@ namespace Selenium_Calculadora.Testes
             IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
 
             _input.Clear();
-          
+
             var operador = GetOperador(operacao);
             var expressao = string.Join(operador, caso.Entradas);
 
@@ -64,41 +61,9 @@ namespace Selenium_Calculadora.Testes
             var resultado = _divResultado.GetAttribute("value");
 
             Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
-                          $"Erro ao {operacao.ToLower()} {string.Join($" {operador} ", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+                          $"Erro ao executar a operação de {operacao.ToLower()} {string.Join($" {operador} ", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
         }
 
-        public void TesteMultiplicacao()
-        {
-            IWebElement input = _driver.FindElement(By.Id("TIExp"));
-            var procedimentos = _XMLHelper.LerProcedimentos();
-
-            foreach (var procedimento in procedimentos)
-            {
-                if (procedimento.Nome == "Multiplicacao")
-                {
-                    foreach (var caso in procedimento.Casos)
-                    {
-                        var entradas = caso.Entradas;
-                        var resultadoEsperado = caso.ResultadoEsperado;
-
-                        input.Clear();
-
-                        var expressao = string.Join("*", entradas);
-                        input.SendKeys(expressao);
-
-                        IWebElement btnResult = _driver.FindElement(By.Id("b27"));
-                        btnResult.Click();
-
-                        IWebElement divResultado = _driver.FindElement(By.Id("TIExp"));
-                        string resultadoObtido = divResultado.GetAttribute("value");
-
-                        Assert.That(resultadoObtido, Is.EqualTo(resultadoEsperado.ToString()), $"Erro ao multiplicar {string.Join(" * ", entradas)}. Resultado esperado: {resultadoEsperado}, Resultado obtido: {resultadoObtido}");
-
-                        input.Clear();
-                    }
-                }
-            }
-        }
         private static string GetOperador(string operacao)
         {
             return operacao switch
@@ -106,7 +71,7 @@ namespace Selenium_Calculadora.Testes
                 "Soma" => "+",
                 "Multiplicacao" => "*",
                 "Divisao" => "/",
-                "Potenciacao" => "^",
+                "Exponencial" => "^",
                 "Porcentagem" => "%",
                 _ => throw new ArgumentException("Operação desconhecida", nameof(operacao))
             };

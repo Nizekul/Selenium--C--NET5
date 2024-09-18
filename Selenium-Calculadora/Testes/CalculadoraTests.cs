@@ -105,6 +105,36 @@ namespace Selenium_Calculadora.Testes
 
         }
 
+        [TestCase]
+        public void TestarMinimoMultiploComum()
+        {
+            IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
+            IWebElement _btnMinimoMultiploComum = _driver.FindElement(By.Id("b79"));
+
+            var casos = _XMLHelper.LerProcedimentos()
+                .FirstOrDefault(p => p.Nome == "MinimoMultiploComum")
+                .Casos;
+
+            foreach(var caso in casos)
+            {
+                _divResultado.Clear();
+                
+                var expressao = string.Join(";", caso.Entradas);
+
+                _divResultado.SendKeys(expressao);
+                Thread.Sleep(1500);
+
+                _btnMinimoMultiploComum.Click();
+                Thread.Sleep(2000);
+
+                var resultado = _divResultado.GetAttribute("value");
+
+                Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
+                              $"Erro ao executar a operação de Mínimo Mútliplo Comum: {string.Join(";", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+            }
+
+        }
+
         private static string GetOperador(string operacao)
         {
             return operacao switch

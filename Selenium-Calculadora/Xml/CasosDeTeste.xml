@@ -44,7 +44,7 @@
 			<resultado>2</resultado>
 		</caso>
 	</procedimento>
-	
+
 	<procedimento nome="Multiplicacao">
 		<caso>
 			<entradas>
@@ -163,6 +163,45 @@
 				<entrada>1</entrada>
 			</entradas>
 			<resultado>150,425</resultado>
+		</caso>
+	</procedimento>
+	<procedimento nome="MinimoMultiploComum">
+		<caso>
+			<entradas>
+				<entrada>127</entrada>
+				<entrada>81</entrada>
+			</entradas>
+			<resultado>10287</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>0,1</entrada>
+				<entrada>5</entrada>
+			</entradas>
+			<resultado>NaN</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>78</entrada>
+				<entrada>54</entrada>
+				<entrada>105</entrada>
+			</entradas>
+			<resultado>24570</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>702</entrada>
+				<entrada>10000</entrada>
+				<entrada>8</entrada>
+			</entradas>
+			<resultado>3510000</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>-90</entrada>
+				<entrada>90</entrada>
+			</entradas>
+			<resultado>NaN</resultado>
 		</caso>
 	</procedimento>
 </testes>

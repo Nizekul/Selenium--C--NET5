@@ -123,4 +123,46 @@
 			<resultado>0,1011928851253881</resultado>
 		</caso>
 	</procedimento>
+	<procedimento nome="JurosCompostos">
+		<caso>
+			<entradas>
+				<entrada>1400</entrada>
+				<entrada>7</entrada>
+				<entrada>2</entrada>
+			</entradas>
+			<resultado>1602,86</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>100000</entrada>
+				<entrada>25</entrada>
+				<entrada>6</entrada>
+			</entradas>
+			<resultado>381469,7265625</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>0,02</entrada>
+				<entrada>14</entrada>
+				<entrada>100</entrada>
+			</entradas>
+			<resultado>9806,524762529427</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>8769</entrada>
+				<entrada>10</entrada>
+				<entrada>7</entrada>
+			</entradas>
+			<resultado>17088,30024990001</resultado>
+		</caso>
+		<caso>
+			<entradas>
+				<entrada>60,17</entrada>
+				<entrada>150</entrada>
+				<entrada>1</entrada>
+			</entradas>
+			<resultado>150,425</resultado>
+		</caso>
+	</procedimento>
 </testes>

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using Selenium_Calculadora.Entidades;
 using Selenium_Calculadora.Xml;
 
@@ -44,7 +45,7 @@ namespace Selenium_Calculadora.Testes
         private void TestarCaso(string operacao, Caso caso)
         {
             IWebElement _input = _driver.FindElement(By.Id("TIExp"));
-            IWebElement _btnResult = _driver.FindElement(By.Id("b27"));
+            IWebElement _btnCalcular = _driver.FindElement(By.Id("b27"));
             IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
 
             _input.Clear();
@@ -55,13 +56,53 @@ namespace Selenium_Calculadora.Testes
             _input.SendKeys(expressao);
             Thread.Sleep(1500);
 
-            _btnResult.Click();
+            _btnCalcular.Click();
             Thread.Sleep(2000);
 
             var resultado = _divResultado.GetAttribute("value");
 
             Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
                           $"Erro ao executar a operação de {operacao.ToLower()} {string.Join($" {operador} ", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+        }
+
+        [TestCase]
+        public void TestarJurosCompostos()
+        {
+            IWebElement _btnJurosCompostos = _driver.FindElement(By.Id("b57"));
+            IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
+
+            var casos = _XMLHelper.LerProcedimentos()
+                .FirstOrDefault(p => p.Nome == "JurosCompostos")
+                .Casos;
+
+            foreach (var caso in casos)
+            {
+                _btnJurosCompostos.Click();
+                Thread.Sleep(2000);
+
+                IWebElement _inputValorPresente = _driver.FindElement(By.Id("cx57_0"));
+                IWebElement _inputTaxaJuros = _driver.FindElement(By.Id("cx57_1"));
+                IWebElement _inputPeriodos = _driver.FindElement(By.Id("cx57_2"));
+                IWebElement _btnCalcular = _driver.FindElement(By.ClassName("uk-button"));
+
+                _inputValorPresente.Clear();
+                _inputTaxaJuros.Clear();
+                _inputPeriodos.Clear();
+
+                _inputValorPresente.SendKeys(caso.Entradas[0]);
+                _inputTaxaJuros.SendKeys(caso.Entradas[1]);
+                _inputPeriodos.SendKeys(caso.Entradas[2]);
+                Thread.Sleep(1500);
+
+                _btnCalcular.Click();
+                Thread.Sleep(2000);
+
+                var resultado = _divResultado.GetAttribute("value");
+
+                Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
+                          $"Erro ao calcular os juros compostos. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+            }
+
         }
 
         private static string GetOperador(string operacao)

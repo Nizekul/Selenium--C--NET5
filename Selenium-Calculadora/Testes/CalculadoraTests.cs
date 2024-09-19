@@ -27,18 +27,22 @@ namespace Selenium_Calculadora.Testes
         }
 
         [TestCase("Soma")]
-        [TestCase("Multiplicação")]
+        [TestCase("Multiplicacao")]
         [TestCase("Exponencial")]
-        public void TestarOperacao(string nomeOperacao)
+        public void TestarOperacao(string operacao)
         {
             var procedimentos = _XMLHelper.LerProcedimentos();
 
-            foreach (var item in procedimentos.Where(p => p.Nome == nomeOperacao))
+            foreach (var procedimento in procedimentos.Where(p => p.Nome == operacao))
             {
-                foreach (var caso in item.Casos)
-                {
-                    TestarCaso(nomeOperacao, caso);
+                if(procedimento.Casos == null || procedimento.Casos.Count == 0)
+                {                    
+                    Assert.Fail($"Nenhum caso de teste encontrado para {operacao}. Verifique a configuração dos dados.");
+                    continue;
                 }
+
+                foreach (var caso in procedimento.Casos)
+                    TestarCaso(operacao, caso);
             }
         }
 
@@ -61,8 +65,12 @@ namespace Selenium_Calculadora.Testes
 
             var resultado = _divResultado.GetAttribute("value");
 
-            Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
-                          $"Erro ao executar a operação de {operacao.ToLower()} {string.Join($" {operador} ", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+            var resultadoEsperadoFormatado = caso?.ResultadoEsperado?.Replace('.', ',');
+
+            Assert.That(resultado, Is.EqualTo(resultadoEsperadoFormatado),
+                          $"Erro ao executar a operação de {operacao.ToLower()} {string.Join($" {operador} ", caso.Entradas)}. " +
+                          $"Resultado esperado: {resultadoEsperadoFormatado}, " +
+                          $"Resultado obtido: {resultado}");
         }
 
         [TestCase]
@@ -71,9 +79,15 @@ namespace Selenium_Calculadora.Testes
             IWebElement _btnJurosCompostos = _driver.FindElement(By.Id("b57"));
             IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
 
-            var casos = _XMLHelper.LerProcedimentos()
-                .FirstOrDefault(p => p.Nome == "JurosCompostos")
+            var casos = _XMLHelper.LerProcedimentos()?
+                .FirstOrDefault(p => p.Nome == "JurosCompostos")?
                 .Casos;
+
+            if (casos == null || casos.Count == 0)
+            {
+                Assert.Fail("Nenhum caso de teste encontrado para 'Juros Compostos'. Verifique a configuração dos dados.");
+                return;
+            }
 
             foreach (var caso in casos)
             {
@@ -100,9 +114,10 @@ namespace Selenium_Calculadora.Testes
                 var resultado = _divResultado.GetAttribute("value");
 
                 Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
-                          $"Erro ao calcular os juros compostos. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+                          $"Erro ao calcular os juros compostos. " +
+                          $"Resultado esperado: {caso.ResultadoEsperado}, " +
+                          $"Resultado obtido: {resultado}");
             }
-
         }
 
         [TestCase]
@@ -111,14 +126,20 @@ namespace Selenium_Calculadora.Testes
             IWebElement _divResultado = _driver.FindElement(By.Id("TIExp"));
             IWebElement _btnMinimoMultiploComum = _driver.FindElement(By.Id("b79"));
 
-            var casos = _XMLHelper.LerProcedimentos()
-                .FirstOrDefault(p => p.Nome == "MinimoMultiploComum")
+            var casos = _XMLHelper.LerProcedimentos()?
+                .FirstOrDefault(p => p.Nome == "MinimoMultiploComum")?
                 .Casos;
 
-            foreach(var caso in casos)
+            if (casos == null || casos.Count == 0)
+            {
+                Assert.Fail("Nenhum caso de teste encontrado para 'Mínimo Múltiplo Comum'. Verifique a configuração dos dados.");
+                return;
+            }
+
+            foreach (var caso in casos)
             {
                 _divResultado.Clear();
-                
+
                 var expressao = string.Join(";", caso.Entradas);
 
                 _divResultado.SendKeys(expressao);
@@ -130,7 +151,9 @@ namespace Selenium_Calculadora.Testes
                 var resultado = _divResultado.GetAttribute("value");
 
                 Assert.That(resultado, Is.EqualTo(caso.ResultadoEsperado),
-                              $"Erro ao executar a operação de Mínimo Mútliplo Comum: {string.Join(";", caso.Entradas)}. Resultado esperado: {caso.ResultadoEsperado}, Resultado obtido: {resultado}");
+                              $"Erro ao executar a operação de Mínimo Mútliplo Comum: {string.Join(";", caso.Entradas)}. " +
+                              $"Resultado esperado: {caso.ResultadoEsperado}, " +
+                              $"Resultado obtido: {resultado}");
             }
 
         }
@@ -150,11 +173,6 @@ namespace Selenium_Calculadora.Testes
 
         [TearDown]
         public void TearDown()
-        {
-            if (_driver != null)
-            {
-                _driver.Quit();
-            }
-        }
+            => _driver?.Quit();
     }
 }

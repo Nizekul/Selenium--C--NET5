@@ -24,7 +24,7 @@ namespace Selenium_Calculadora.Xml
                 {
                     Entradas = caso.Element("entradas")?.Elements("entrada")
                             .Select(e => e.Value.ToString())
-                            .ToList() ?? new List<string>(),
+                            .ToList() ?? [],
                     ResultadoEsperado = caso.Element("resultado")?.Value
                 }).ToList()
             });

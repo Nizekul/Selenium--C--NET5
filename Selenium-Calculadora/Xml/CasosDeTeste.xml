@@ -3,85 +3,97 @@
 	<procedimento nome="Soma">
 		<caso>
 			<entradas>
-				<entrada>5</entrada>
-				<entrada>3</entrada>
+				<entrada>12.5</entrada>
+				<entrada>7.75</entrada>
 			</entradas>
-			<resultado>8</resultado>
+			<resultado>20.25</resultado>
 		</caso>
 
 		<caso>
 			<entradas>
-				<entrada>-5</entrada>
-				<entrada>3</entrada>
+				<entrada>(-8.4)</entrada>
+				<entrada>(-2.6)</entrada>
 			</entradas>
-			<resultado>-2</resultado>
+			<resultado>-11</resultado>
 		</caso>
 
 		<caso>
 			<entradas>
-				<entrada>-5</entrada>
-				<entrada>-3</entrada>
+				<entrada>3.14159</entrada>
+				<entrada>2.71828</entrada>
 			</entradas>
-			<resultado>-8</resultado>
-		</caso>
-		<caso>
-			<entradas>
-				<entrada>1</entrada>
-				<entrada>2</entrada>
-				<entrada>3</entrada>
-				<entrada>4</entrada>
-			</entradas>
-			<resultado>10</resultado>
+			<resultado>5.85987</resultado>
 		</caso>
 
 		<caso>
 			<entradas>
-				<entrada>-1</entrada>
-				<entrada>2</entrada>
-				<entrada>-3</entrada>
-				<entrada>4</entrada>
+				<entrada>-10.5</entrada>
+				<entrada>15.75</entrada>
+				<entrada>(-4.25)</entrada>
 			</entradas>
-			<resultado>2</resultado>
+			<resultado>1</resultado>
+		</caso>
+
+		<caso>
+			<entradas>
+				<entrada>0.001</entrada>
+				<entrada>999.999</entrada>
+				<entrada>-1000</entrada>
+			</entradas>
+			<resultado>0</resultado>
 		</caso>
 	</procedimento>
 
 	<procedimento nome="Multiplicacao">
 		<caso>
 			<entradas>
-				<entrada>10</entrada>
-				<entrada>0</entrada>
+				<entrada>12.5</entrada>
+				<entrada>4.0</entrada>
 			</entradas>
-			<resultado>0</resultado>
+			<resultado>50</resultado>
 		</caso>
+
 		<caso>
 			<entradas>
-				<entrada>-3</entrada>
-				<entrada>5</entrada>
+				<entrada>(-8.2)</entrada>
+				<entrada>(3.5)</entrada>
 			</entradas>
-			<resultado>-15</resultado>
+			<resultado>-28.7</resultado>
 		</caso>
+
 		<caso>
 			<entradas>
-				<entrada>-7</entrada>
-				<entrada>-6</entrada>
+				<entrada>(-2.5)</entrada>
+				<entrada>(-4.0)</entrada>
 			</entradas>
-			<resultado>42</resultado>
+			<resultado>10</resultado>
 		</caso>
+
 		<caso>
 			<entradas>
-				<entrada>123456</entrada>
-				<entrada>654321</entrada>
+				<entrada>1.234</entrada>
+				<entrada>10000</entrada>
 			</entradas>
-			<resultado>80779853376</resultado>
+			<resultado>12340</resultado>
 		</caso>
+
 		<caso>
 			<entradas>
-				<entrada>-100000</entrada>
-				<entrada>200000</entrada>
+				<entrada>(-99999)</entrada>
+				<entrada>(0.001)</entrada>
 			</entradas>
-			<resultado>-20000000000</resultado>
+			<resultado>-99.999</resultado>
+		</caso>
+
+		<caso>
+			<entradas>
+				<entrada>3.14159</entrada>
+				<entrada>2.71828</entrada>
+			</entradas>
+			<resultado>8.539721265199999</resultado>
 		</caso>
 	</procedimento>
+
 
 	<procedimento nome ="Exponencial">
 		<caso>
